@@ -5,3 +5,9 @@
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# Visual Studio (full IDE) local settings & build output
+.vs/
+bin/
+obj/
+*.user
