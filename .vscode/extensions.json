@@ -1,0 +1,9 @@
+{
+  // VS Code will offer to install these when you open this folder.
+  "recommendations": [
+    "ritwickdey.LiveServer",        // "Go Live" button: preview with auto-reload on save
+    "esbenp.prettier-vscode",       // one-click code formatting
+    "ecmel.vscode-html-css",        // CSS class autocomplete in HTML
+    "naumovs.color-highlight"       // shows colour swatches next to hex codes
+  ]
+}

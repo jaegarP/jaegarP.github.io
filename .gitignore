@@ -1,0 +1,7 @@
+# Local tooling (not needed on the live site)
+.claude/
+
+# OS / editor junk
+Thumbs.db
+Desktop.ini
+.DS_Store

@@ -1,0 +1,21 @@
+{
+  // Press F5 in VS Code to open the site in Edge/Chrome with debugging
+  // (breakpoints in js/*.js work). Start Live Server first ("Go Live" in the status bar).
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Open portfolio in Edge (Live Server)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://127.0.0.1:5500/index.html",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Open portfolio in Chrome (Live Server)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://127.0.0.1:5500/index.html",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
