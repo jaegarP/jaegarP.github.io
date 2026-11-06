@@ -200,12 +200,14 @@
           <p class="section__lead" data-bind="contact.text"></p>
           <ul class="contact__list" id="contactList"></ul>
         </div>
-        <!-- Opens the visitor's email app with the message pre-filled (no server needed).
-             To use a form service instead (Formspree, Netlify Forms), see README.md. -->
-        <form class="card contact__form reveal" id="contactForm">
-          <label>Your name<input type="text" name="name" required /></label>
-          <label>Your email<input type="email" name="email" required /></label>
-          <label>Message<textarea name="message" rows="5" required></textarea></label>
+        <!-- Sends to the contact API (contact.apiUrl in js/content.js). If no API is set,
+             or it can't be reached, it falls back to opening the visitor's email app. -->
+        <form class="card contact__form reveal" id="contactForm" novalidate>
+          <label>Your name<input type="text" name="name" required maxlength="100" autocomplete="name" /><span class="field-error" data-for="name"></span></label>
+          <label>Your email<input type="email" name="email" required maxlength="254" autocomplete="email" /><span class="field-error" data-for="email"></span></label>
+          <label>Message<textarea name="message" rows="5" required minlength="10" maxlength="5000"></textarea><span class="field-error" data-for="message"></span></label>
+          <!-- Spam trap: hidden from people, but bots fill it in. Leave this field in place. -->
+          <label class="hp" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
           <button type="submit" class="btn btn--primary">Send message</button>
           <p class="small muted" id="contactStatus" role="status"></p>
         </form>

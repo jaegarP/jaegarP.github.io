@@ -386,6 +386,9 @@ window.SITE = {
   contact: {
     heading: "Let's build something decision-ready.",
     text: "Hiring for finance, strategy or business development — or need a model, a report or a research partner? Send a message and I'll get back to you.",
+    // Contact API endpoint (the Azure Function in the contact-api project).
+    // Leave "" to fall back to opening the visitor's email app.
+    apiUrl: "",
   },
 
   /* ---------- Footer ---------- */

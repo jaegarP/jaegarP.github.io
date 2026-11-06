@@ -203,14 +203,74 @@
   ];
   $("#contactList").innerHTML = contactItems.join("");
 
-  // Opens the visitor's email client with a pre-filled message
-  $("#contactForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const f = new FormData(e.target);
+  // Contact form: sends to the contact API (S.contact.apiUrl). Falls back to the
+  // visitor's email app when no API is configured or the API can't be reached.
+  const form = $("#contactForm");
+  const status = $("#contactStatus");
+  const submitBtn = $('button[type="submit"]', form);
+
+  const setStatus = (text, kind = "") => {
+    status.textContent = text;
+    status.className = `small form-status ${kind ? "form-status--" + kind : "muted"}`;
+  };
+  const showFieldErrors = (errors = {}) =>
+    $$(".field-error", form).forEach((el) => (el.textContent = errors[el.dataset.for] || ""));
+
+  const openMailApp = (f) => {
     const subject = encodeURIComponent(`Portfolio enquiry from ${f.get("name")}`);
     const body = encodeURIComponent(`${f.get("message")}\n\n— ${f.get("name")} (${f.get("email")})`);
     window.location.href = `mailto:${P.email}?subject=${subject}&body=${body}`;
-    $("#contactStatus").textContent = "Opening your email app… if nothing happens, email me directly at " + P.email;
+    setStatus("Opening your email app… if nothing happens, email me directly at " + P.email);
+  };
+
+  // Quick checks in the browser (the API re-checks everything on the server).
+  const validateLocally = (f) => {
+    const errors = {};
+    const name = String(f.get("name") || "").trim();
+    const email = String(f.get("email") || "").trim();
+    const message = String(f.get("message") || "").trim();
+    if (!name) errors.name = "Please enter your name.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "Please enter a valid email address.";
+    if (message.length < 10) errors.message = "Message must be at least 10 characters.";
+    return errors;
+  };
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const localErrors = validateLocally(f);
+    showFieldErrors(localErrors);
+    if (Object.keys(localErrors).length) return setStatus("Please fix the highlighted fields.", "error");
+
+    const apiUrl = S.contact.apiUrl;
+    if (!apiUrl) return openMailApp(f);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+    setStatus("");
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(f)),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        form.reset();
+        setStatus(data.message || "Thanks — your message has been sent.", "ok");
+      } else if (res.status === 400 && data.errors) {
+        showFieldErrors(data.errors);
+        setStatus("Please fix the highlighted fields.", "error");
+      } else {
+        setStatus(`${data.error || "Something went wrong."} You can also email me at ${P.email}.`, "error");
+      }
+    } catch {
+      // Network error / API offline → don't lose the message: use the email app instead.
+      openMailApp(f);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send message";
+    }
   });
 
   /* ---------- 10. Nav, theme, scroll ---------- */
