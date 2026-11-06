@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+  SOCIAL PREVIEW CARD (the image LinkedIn / WhatsApp / X show when your link is shared)
+  -------------------------------------------------------------------------------------
+  Edit the text below, then re-render to assets/og-image.png — see README.md
+  ("Social preview image"). Size must stay 1200 × 627.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 627px; overflow: hidden; }
+  body {
+    background: #070b14; color: #e6ebf5; font-family: "Inter", sans-serif;
+    position: relative; padding: 64px 72px;
+  }
+  .glow { position: absolute; width: 760px; height: 760px; right: -220px; top: -260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,212,191,.28), transparent 62%); }
+  .glow2 { position: absolute; width: 520px; height: 520px; left: -200px; bottom: -300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,181,68,.14), transparent 65%); }
+  .grid { position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 48px 48px; mask-image: linear-gradient(90deg, transparent, #000 55%); }
+  svg.chart { position: absolute; right: 0; bottom: 0; width: 720px; height: 330px; }
+  .content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 18px; }
+  .mark { width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center;
+    background: linear-gradient(135deg, #2dd4bf, #f5b544); color: #06121a;
+    font: 700 26px "Space Grotesk", sans-serif; }
+  .url { font: 500 22px "JetBrains Mono", monospace; color: #8b95ab; }
+  h1 { font: 700 76px/1.02 "Space Grotesk", sans-serif; letter-spacing: -0.03em; margin-top: 54px; }
+  h1 span { background: linear-gradient(100deg, #2dd4bf 10%, #f5b544 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .role { font: 500 30px "Inter", sans-serif; color: #c4cbd9; margin-top: 18px; }
+  .tags { display: flex; gap: 12px; margin-top: auto; }
+  .tag { padding: 10px 20px; border-radius: 999px; font: 500 20px "JetBrains Mono", monospace;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); color: #e6ebf5; }
+  .tag b { font-weight: 500; }
+  .t1 b { color: #f5b544; } .t2 b { color: #a78bfa; } .t3 b { color: #38bdf8; }
+</style>
+</head>
+<body>
+  <div class="glow"></div><div class="glow2"></div><div class="grid"></div>
+
+  <!-- decorative price line -->
+  <svg class="chart" viewBox="0 0 720 330" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="l" x1="0" x2="1"><stop offset="0" stop-color="#2dd4bf" stop-opacity="0"/><stop offset=".45" stop-color="#2dd4bf" stop-opacity=".8"/><stop offset="1" stop-color="#f5b544"/></linearGradient>
+      <linearGradient id="f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2dd4bf" stop-opacity=".16"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></linearGradient>
+    </defs>
+    <path d="M0 270 C60 262 90 230 140 240 S220 280 270 230 S350 170 400 190 S480 220 520 150 S600 90 640 100 S680 70 696 48 L720 48 L720 330 L0 330Z" fill="url(#f)"/>
+    <path d="M0 270 C60 262 90 230 140 240 S220 280 270 230 S350 170 400 190 S480 220 520 150 S600 90 640 100 S680 70 696 48" fill="none" stroke="url(#l)" stroke-width="4"/>
+    <circle cx="696" cy="48" r="7" fill="#f5b544"/>
+  </svg>
+
+  <div class="content">
+    <div class="brand">
+      <div class="mark">JP</div>
+      <div class="url">jaegarp.github.io</div>
+    </div>
+    <h1>Joseph P.<br /><span>Mark-Inyah</span></h1>
+    <p class="role">Financial &amp; Operations Analyst · Audit &amp; Assurance</p>
+    <div class="tags">
+      <span class="tag t1"><b>◆</b> Financial Modeling</span>
+      <span class="tag t2"><b>◆</b> AI</span>
+      <span class="tag t3"><b>◆</b> Cloud</span>
+    </div>
+  </div>
+</body>
+</html>

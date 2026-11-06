@@ -90,7 +90,23 @@ change `<form class="card contact__form reveal" id="contactForm">` to
 
 ---
 
-## 5. Put it online (free)
+## 5. Social preview image (LinkedIn / WhatsApp card)
+
+When your link is shared, sites show `assets/og-image.png` (1200 × 627) plus the `og:` tags near the top of `index.html`.
+
+To change the image:
+1. Edit the text/colours in `tools/og-card.html` (open it in a browser to preview).
+2. Re-render it to PNG — paste this in the VS Code terminal (PowerShell):
+   ```powershell
+   & "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=1200,627 --virtual-time-budget=8000 "--screenshot=$PWD\assets\og-image.png" "$PWD\tools\og-card.html"
+   ```
+3. Commit & sync, then refresh LinkedIn's cached copy at **linkedin.com/post-inspector** (paste your URL → Inspect).
+
+If you move to a custom domain, update every `https://jaegarp.github.io` URL in the `<head>` of `index.html`.
+
+---
+
+## 6. Put it online (free)
 
 Any static host works — there is no server code:
 
