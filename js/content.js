@@ -58,7 +58,7 @@ window.SITE = {
     highlights: [
       { icon: "chart", title: "Financial modeling", text: "Project finance, DCF, multiples & LBO, scenario analysis." },
       { icon: "ai", title: "AI-enabled work", text: "AI-assisted research synthesis & AI training-data contribution." },
-      { icon: "cloud", title: "Cloud tools", text: "Google Workspace & Microsoft 365 (advanced) for multi-entity ops." },
+      { icon: "cloud", title: "Cloud & serverless", text: "AWS & Azure serverless APIs, Docker, plus advanced Google Workspace & Microsoft 365." },
       { icon: "shield", title: "Audit & governance", text: "IFRS-aligned working papers, controls & confidentiality." },
     ],
   },
@@ -234,6 +234,26 @@ window.SITE = {
       metric: { value: "50+", label: "clients" },
       links: [],
     },
+    {
+      published: true,
+      featured: true,
+      category: "cloud",
+      title: "Multi-Cloud Serverless Contact API",
+      org: "Personal project — powers this site's contact form",
+      year: "2026",
+      summary:
+        "A C# (.NET 10) API written once and deployable to both AWS and Azure. Live on AWS Lambda with DynamoDB and SES; the site fails over between clouds automatically.",
+      details: [
+        "Live on AWS: Lambda (.NET 10, arm64) behind a Function URL, DynamoDB storage and Amazon SES email — deployed as infrastructure-as-code with AWS SAM / CloudFormation.",
+        "Azure version (Azure Functions, Table Storage, Communication Services email) built and tested from the same shared core; cloud deployment in progress.",
+        "Cloud-neutral core library: server-side validation, honeypot spam trap, per-visitor rate limiting with salted, hashed IPs, and store-before-email so no message is lost.",
+        "Website failover: tries each cloud in order, then falls back to the visitor's email app — tested by simulating outages.",
+        "Fully containerised with Docker (API + Azurite / DynamoDB Local emulators) and covered by 35 xUnit tests.",
+      ],
+      tags: ["AWS Lambda", "DynamoDB", "SES", "Azure Functions", "C# / .NET 10", "Docker", "IaC"],
+      metric: { value: "2", label: "clouds, 1 codebase" },
+      links: [{ label: "View code on GitHub", url: "https://github.com/jaegarP/portfolio-contact-api" }],
+    },
 
     /* ---- TEMPLATE: copy this block for a new project, then set published: true ---- */
     {
@@ -346,6 +366,10 @@ window.SITE = {
     "Board Minutes",
     "Investment Memoranda",
     "Data Visualisation",
+    "AWS (Lambda, DynamoDB, SES)",
+    "Azure Functions",
+    "Docker",
+    "C# / .NET",
   ],
 
   /* ---------- Education & credentials ---------- */
