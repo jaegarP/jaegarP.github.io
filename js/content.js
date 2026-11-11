@@ -386,9 +386,11 @@ window.SITE = {
   contact: {
     heading: "Let's build something decision-ready.",
     text: "Hiring for finance, strategy or business development — or need a model, a report or a research partner? Send a message and I'll get back to you.",
-    // Contact API endpoint (the Azure Function in the contact-api project).
-    // Leave "" to fall back to opening the visitor's email app.
-    apiUrl: "",
+    // Contact API endpoints (the contact-api project), tried in order — multi-cloud failover:
+    //   1st: Azure Functions URL   e.g. "https://jpcontact-api-xxxx.azurewebsites.net/api/contact"
+    //   2nd: AWS Lambda URL        e.g. "https://xxxx.lambda-url.eu-west-1.on.aws/api/contact"
+    // If every API is unreachable (or the list is empty), the form opens the visitor's email app.
+    apiUrls: [],
   },
 
   /* ---------- Footer ---------- */

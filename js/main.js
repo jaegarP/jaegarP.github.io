@@ -242,30 +242,44 @@
     showFieldErrors(localErrors);
     if (Object.keys(localErrors).length) return setStatus("Please fix the highlighted fields.", "error");
 
-    const apiUrl = S.contact.apiUrl;
-    if (!apiUrl) return openMailApp(f);
+    // Multi-cloud failover: try each API in order (e.g. Azure, then AWS).
+    // Move on to the next one only if an API is unreachable, times out or has a server error (5xx).
+    // A definite answer (sent, validation error, rate limit) stops the loop.
+    const apiUrls = [].concat(S.contact.apiUrls || [], S.contact.apiUrl || []).filter(Boolean);
+    if (!apiUrls.length) return openMailApp(f);
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending…";
     setStatus("");
+    const payload = JSON.stringify(Object.fromEntries(f));
     try {
-      const res = await fetch(apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(f)),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok) {
-        form.reset();
-        setStatus(data.message || "Thanks — your message has been sent.", "ok");
-      } else if (res.status === 400 && data.errors) {
-        showFieldErrors(data.errors);
-        setStatus("Please fix the highlighted fields.", "error");
-      } else {
-        setStatus(`${data.error || "Something went wrong."} You can also email me at ${P.email}.`, "error");
+      for (const url of apiUrls) {
+        let res;
+        try {
+          res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: payload,
+            signal: AbortSignal.timeout ? AbortSignal.timeout(10000) : undefined, // give up after 10 s
+          });
+        } catch {
+          continue; // unreachable / timed out → try the next cloud
+        }
+        if (res.status >= 500) continue; // server error → try the next cloud
+
+        const data = await res.json().catch(() => ({}));
+        if (res.ok) {
+          form.reset();
+          setStatus(data.message || "Thanks — your message has been sent.", "ok");
+        } else if (res.status === 400 && data.errors) {
+          showFieldErrors(data.errors);
+          setStatus("Please fix the highlighted fields.", "error");
+        } else {
+          setStatus(`${data.error || "Something went wrong."} You can also email me at ${P.email}.`, "error");
+        }
+        return;
       }
-    } catch {
-      // Network error / API offline → don't lose the message: use the email app instead.
+      // Every API failed → don't lose the message: use the visitor's email app instead.
       openMailApp(f);
     } finally {
       submitBtn.disabled = false;
