@@ -390,7 +390,10 @@ window.SITE = {
     //   1st: Azure Functions URL   e.g. "https://jpcontact-api-xxxx.azurewebsites.net/api/contact"
     //   2nd: AWS Lambda URL        e.g. "https://xxxx.lambda-url.eu-west-1.on.aws/api/contact"
     // If every API is unreachable (or the list is empty), the form opens the visitor's email app.
-    apiUrls: [],
+    apiUrls: [
+      // "https://<your-azure-function>.azurewebsites.net/api/contact",   ← add here (first) once Azure is deployed
+      "https://roajuqqamphmcvoxnkiljnds6e0dmlll.lambda-url.eu-west-1.on.aws/api/contact", // AWS Lambda (eu-west-1)
+    ],
   },
 
   /* ---------- Footer ---------- */
