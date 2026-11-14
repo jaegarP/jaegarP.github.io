@@ -242,10 +242,10 @@ window.SITE = {
       org: "Personal project — powers this site's contact form",
       year: "2026",
       summary:
-        "A C# (.NET 10) API written once and deployable to both AWS and Azure. Live on AWS Lambda with DynamoDB and SES; the site fails over between clouds automatically.",
+        "A C# (.NET 10) API written once and live on both Azure and AWS. The site sends to Azure first and fails over to AWS automatically if Azure is unavailable.",
       details: [
-        "Live on AWS: Lambda (.NET 10, arm64) behind a Function URL, DynamoDB storage and Amazon SES email — deployed as infrastructure-as-code with AWS SAM / CloudFormation.",
-        "Azure version (Azure Functions, Table Storage, Communication Services email) built and tested from the same shared core; cloud deployment in progress.",
+        "Primary on Azure (South Africa North): Azure Functions on the serverless Flex Consumption plan, Table Storage and Communication Services email, monitored with Application Insights — deployed by a re-runnable Azure CLI script.",
+        "Failover on AWS (Ireland): Lambda (.NET 10, arm64) behind a Function URL, DynamoDB storage and Amazon SES email — deployed as infrastructure-as-code with AWS SAM / CloudFormation.",
         "Cloud-neutral core library: server-side validation, honeypot spam trap, per-visitor rate limiting with salted, hashed IPs, and store-before-email so no message is lost.",
         "Website failover: tries each cloud in order, then falls back to the visitor's email app — tested by simulating outages.",
         "Fully containerised with Docker (API + Azurite / DynamoDB Local emulators) and covered by 35 xUnit tests.",
@@ -415,8 +415,8 @@ window.SITE = {
     //   2nd: AWS Lambda URL        e.g. "https://xxxx.lambda-url.eu-west-1.on.aws/api/contact"
     // If every API is unreachable (or the list is empty), the form opens the visitor's email app.
     apiUrls: [
-      // "https://<your-azure-function>.azurewebsites.net/api/contact",   ← add here (first) once Azure is deployed
-      "https://roajuqqamphmcvoxnkiljnds6e0dmlll.lambda-url.eu-west-1.on.aws/api/contact", // AWS Lambda (eu-west-1)
+      "https://jpcontact-api-1621e5.azurewebsites.net/api/contact", // 1st: Azure Functions (South Africa North)
+      "https://roajuqqamphmcvoxnkiljnds6e0dmlll.lambda-url.eu-west-1.on.aws/api/contact", // 2nd: AWS Lambda (Ireland) — backup
     ],
   },
 
