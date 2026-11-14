@@ -15,7 +15,7 @@
   <meta property="og:url" content="https://jaegarp.github.io/" />
   <meta property="og:site_name" content="Joseph P. Mark-Inyah" />
   <meta property="og:title" content="Joseph P. Mark-Inyah — Finance, AI & Cloud Portfolio" />
-  <meta property="og:description" content="Financial & Operations Analyst. Selected work in financial modeling, AI-enabled workflows and cloud reporting — plus a live, interactive DCF valuation model." />
+  <meta property="og:description" content="Financial & Operations Analyst. Selected work in financial modeling, AI-enabled workflows and cloud reporting — NVIDIA &amp; ExxonMobil DCF models, a multi-cloud (Azure + AWS) serverless API and a CI/CD capstone on AWS." />
   <meta property="og:image" content="https://jaegarp.github.io/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="627" />
@@ -43,7 +43,8 @@
       <nav class="nav__links" id="navLinks" aria-label="Main">
         <a href="#about">About</a>
         <a href="#work">Work</a>
-        <a href="#lab">Model Lab</a>
+        <a href="#lab">Models</a>
+        <a href="#cloud">Cloud</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
         <a href="#contact" class="btn btn--small btn--primary">Contact</a>
@@ -113,10 +114,19 @@
       <div class="container">
         <div class="section__head reveal">
           <p class="section__kicker">03 — Model lab</p>
-          <h2 class="section__title">Interactive DCF valuation</h2>
-          <p class="section__lead">A live five-year discounted-cash-flow model. Move the sliders — enterprise value, cash-flow chart and the sensitivity grid update instantly.</p>
+          <h2 class="section__title">Valuation models</h2>
+          <p class="section__lead">Two full equity-research models you can download and audit, plus a live DCF sandbox to play with.</p>
         </div>
 
+        <!-- Equity research models: rendered by js/models.js from `models` in js/content.js.
+             The .xlsx files live in assets/models/. -->
+        <div id="models" class="models"></div>
+        <p class="models__note small muted reveal" data-bind="modelsNote"></p>
+
+        <div class="lab-head reveal">
+          <h3>Interactive DCF sandbox</h3>
+          <p class="muted">A live five-year discounted-cash-flow model. Move the sliders and the enterprise value, cash-flow chart and sensitivity grid update instantly.</p>
+        </div>
         <div class="lab reveal">
           <form class="lab__inputs card" id="dcfForm" autocomplete="off">
             <div class="lab__row">
@@ -157,11 +167,270 @@
       </div>
     </section>
 
-    <!-- ===================== EXPERIENCE ===================== -->
-    <section class="section section--alt" id="experience">
+    <!-- ===================== CLOUD & DEVOPS ===================== -->
+    <!-- Cards, case study and table are rendered by js/cloud.js from `cloud` in js/content.js.
+         The three diagrams below are hand-written SVG: edit the text/boxes right here. -->
+    <section class="section section--alt" id="cloud">
       <div class="container">
         <div class="section__head reveal">
-          <p class="section__kicker">04 — Experience</p>
+          <p class="section__kicker">04 — Cloud &amp; DevOps</p>
+          <h2 class="section__title">What I've deployed, and how</h2>
+          <p class="section__lead">For hiring managers and clients: live deployments, the architecture behind this site, my bootcamp capstone, and where each cloud skill is demonstrated.</p>
+        </div>
+
+        <div class="deploys" id="deploys"></div>
+
+        <!-- Architecture of this website -->
+        <div class="card arch reveal" id="architecture">
+          <div class="arch__head">
+            <div>
+              <h3>Architecture of this website</h3>
+              <p class="muted small">A static front end with a serverless back end on two clouds.</p>
+            </div>
+            <div class="seg" role="tablist" aria-label="Diagram view">
+              <button class="seg__btn is-active" role="tab" aria-selected="true" data-view="runtime">Request flow</button>
+              <button class="seg__btn" role="tab" aria-selected="false" data-view="delivery">Build &amp; deploy</button>
+            </div>
+          </div>
+
+          <!-- View 1: what happens when someone visits / sends a message -->
+          <div class="arch__view" data-view="runtime">
+            <p class="diagram-hint mono small muted">Swipe sideways to see the full diagram →</p>
+            <div class="diagram-scroll">
+              <svg class="dg" viewBox="0 0 1000 470" role="img" aria-labelledby="dgRuntimeTitle">
+                <title id="dgRuntimeTitle">Request flow: GitHub Pages serves the site; the contact form posts to Azure Functions first, fails over to AWS Lambda, then to the visitor's email app.</title>
+                <defs>
+                  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head" /></marker>
+                </defs>
+
+                <!-- Left column -->
+                <rect class="dg-node" x="20" y="20" width="220" height="96" rx="12" />
+                <text class="dg-t" x="38" y="52">GitHub Pages</text>
+                <text class="dg-s" x="38" y="76">Static HTML · CSS · JS</text>
+                <text class="dg-s" x="38" y="98">HTTPS · global CDN</text>
+
+                <rect class="dg-node dg-node--key" x="20" y="176" width="220" height="118" rx="12" />
+                <text class="dg-t" x="38" y="208">Visitor's browser</text>
+                <text class="dg-s" x="38" y="232">Validates the form</text>
+                <text class="dg-s" x="38" y="254">Tries each API in order</text>
+                <text class="dg-s" x="38" y="276">10 s timeout per cloud</text>
+
+                <rect class="dg-node" x="20" y="354" width="220" height="96" rx="12" />
+                <text class="dg-t" x="38" y="386">Email-app fallback</text>
+                <text class="dg-s" x="38" y="410">mailto: with message filled in</text>
+                <text class="dg-s" x="38" y="432">so no enquiry is lost</text>
+
+                <path class="dg-arrow" d="M130,116 V174" marker-end="url(#arr)" />
+                <path class="dg-arrow dg-arrow--dash" d="M130,294 V352" marker-end="url(#arr)" />
+
+                <!-- Azure -->
+                <rect class="dg-region dg-region--azure" x="320" y="20" width="660" height="204" rx="16" />
+                <text class="dg-r" x="340" y="46">MICROSOFT AZURE · PRIMARY</text>
+                <text class="dg-r dg-r--end" x="962" y="46">South Africa North</text>
+                <rect class="dg-node" x="340" y="64" width="230" height="142" rx="12" />
+                <text class="dg-t" x="358" y="94">Azure Functions</text>
+                <text class="dg-s" x="358" y="118">Flex Consumption (serverless)</text>
+                <text class="dg-s" x="358" y="140">.NET 10 isolated worker</text>
+                <text class="dg-s" x="358" y="162">CORS: this site only</text>
+                <text class="dg-s" x="358" y="184">Rate limit · spam honeypot</text>
+                <rect class="dg-svc" x="660" y="64" width="300" height="42" rx="10" />
+                <text class="dg-s2" x="676" y="90"><tspan class="dg-b">Table Storage</tspan> · stores every message</text>
+                <rect class="dg-svc" x="660" y="114" width="300" height="42" rx="10" />
+                <text class="dg-s2" x="676" y="140"><tspan class="dg-b">Communication Services</tspan> · email</text>
+                <rect class="dg-svc" x="660" y="164" width="300" height="42" rx="10" />
+                <text class="dg-s2" x="676" y="190"><tspan class="dg-b">Application Insights</tspan> · telemetry</text>
+                <path class="dg-arrow" d="M570,135 H615 V85 H658" marker-end="url(#arr)" />
+                <path class="dg-arrow" d="M570,135 H658" marker-end="url(#arr)" />
+                <path class="dg-arrow" d="M570,135 H615 V185 H658" marker-end="url(#arr)" />
+
+                <!-- AWS -->
+                <rect class="dg-region dg-region--aws" x="320" y="246" width="660" height="204" rx="16" />
+                <text class="dg-r" x="340" y="272">AMAZON WEB SERVICES · FAILOVER</text>
+                <text class="dg-r dg-r--end" x="962" y="272">eu-west-1 · Ireland</text>
+                <rect class="dg-node" x="340" y="290" width="230" height="142" rx="12" />
+                <text class="dg-t" x="358" y="320">AWS Lambda</text>
+                <text class="dg-s" x="358" y="344">Function URL (HTTPS)</text>
+                <text class="dg-s" x="358" y="366">.NET 10 · arm64</text>
+                <text class="dg-s" x="358" y="388">Same shared core library</text>
+                <text class="dg-s" x="358" y="410">Built with SAM / CloudFormation</text>
+                <rect class="dg-svc" x="660" y="290" width="300" height="42" rx="10" />
+                <text class="dg-s2" x="676" y="316"><tspan class="dg-b">DynamoDB</tspan> · stores every message</text>
+                <rect class="dg-svc" x="660" y="340" width="300" height="42" rx="10" />
+                <text class="dg-s2" x="676" y="366"><tspan class="dg-b">Amazon SES</tspan> · email</text>
+                <rect class="dg-svc" x="660" y="390" width="300" height="42" rx="10" />
+                <text class="dg-s2" x="676" y="416"><tspan class="dg-b">CloudWatch Logs</tspan> · 30-day retention</text>
+                <path class="dg-arrow" d="M570,361 H615 V311 H658" marker-end="url(#arr)" />
+                <path class="dg-arrow" d="M570,361 H658" marker-end="url(#arr)" />
+                <path class="dg-arrow" d="M570,361 H615 V411 H658" marker-end="url(#arr)" />
+
+                <!-- Browser → clouds -->
+                <path class="dg-arrow dg-arrow--key" d="M240,212 H280 V135 H338" marker-end="url(#arr)" />
+                <path class="dg-arrow dg-arrow--dash" d="M240,258 H280 V361 H338" marker-end="url(#arr)" />
+
+                <!-- Step badges -->
+                <g class="dg-step"><circle cx="152" cy="145" r="12" /><text x="152" y="149">1</text></g>
+                <g class="dg-step"><circle cx="280" cy="172" r="12" /><text x="280" y="176">2</text></g>
+                <g class="dg-step"><circle cx="280" cy="312" r="12" /><text x="280" y="316">3</text></g>
+                <g class="dg-step"><circle cx="152" cy="323" r="12" /><text x="152" y="327">4</text></g>
+              </svg>
+            </div>
+            <ol class="arch__legend">
+              <li><b>Load:</b> GitHub Pages serves the site as static files: nothing to patch, HTTPS by default.</li>
+              <li><b>Send:</b> the contact form posts to Azure Functions, which stores the message, then emails it.</li>
+              <li><b>Failover:</b> if Azure times out or returns a server error, the same request goes to AWS Lambda.</li>
+              <li><b>Last resort:</b> if both clouds are down, the visitor's email app opens with the message filled in.</li>
+            </ol>
+          </div>
+
+          <!-- View 2: how code gets from the laptop to production -->
+          <div class="arch__view" data-view="delivery" hidden>
+            <p class="diagram-hint mono small muted">Swipe sideways to see the full diagram →</p>
+            <div class="diagram-scroll">
+              <svg class="dg" viewBox="0 0 1000 330" role="img" aria-labelledby="dgDeliveryTitle">
+                <title id="dgDeliveryTitle">Build and deploy: code is tested locally in Docker, pushed to GitHub for the website, and deployed to Azure with the Azure CLI and to AWS with SAM and CloudFormation.</title>
+                <defs><marker id="arrD" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head" /></marker></defs>
+                <rect class="dg-region" x="20" y="16" width="290" height="298" rx="16" />
+                <text class="dg-r" x="40" y="44">DEVELOPER WORKSTATION</text>
+                <text class="dg-s" x="40" y="68">VS Code / Visual Studio</text>
+                <rect class="dg-node" x="40" y="84" width="250" height="60" rx="10" />
+                <text class="dg-t dg-t--sm" x="56" y="109">Docker Compose</text>
+                <text class="dg-s" x="56" y="131">API + Azurite + DynamoDB Local</text>
+                <rect class="dg-node" x="40" y="164" width="250" height="60" rx="10" />
+                <text class="dg-t dg-t--sm" x="56" y="189">35 xUnit tests</text>
+                <text class="dg-s" x="56" y="211">validation · rate limits · storage</text>
+                <rect class="dg-node" x="40" y="244" width="250" height="56" rx="10" />
+                <text class="dg-t dg-t--sm" x="56" y="268">Git</text>
+                <text class="dg-s" x="56" y="289">commit → push</text>
+                <path class="dg-arrow" d="M165,144 V162" marker-end="url(#arrD)" />
+                <path class="dg-arrow" d="M165,224 V242" marker-end="url(#arrD)" />
+
+                <!-- Row 1: Azure -->
+                <rect class="dg-node" x="400" y="27" width="250" height="76" rx="12" />
+                <text class="dg-t dg-t--sm" x="418" y="58">Azure CLI script</text>
+                <text class="dg-s" x="418" y="82">re-runnable · func publish</text>
+                <rect class="dg-node dg-node--azure" x="730" y="27" width="250" height="76" rx="12" />
+                <text class="dg-t dg-t--sm" x="748" y="58">Azure Functions app</text>
+                <text class="dg-s" x="748" y="82">+ Storage, Email, App Insights</text>
+                <!-- Row 2: AWS -->
+                <rect class="dg-node" x="400" y="127" width="250" height="76" rx="12" />
+                <text class="dg-t dg-t--sm" x="418" y="158">AWS SAM</text>
+                <text class="dg-s" x="418" y="182">template.yaml → CloudFormation</text>
+                <rect class="dg-node dg-node--aws" x="730" y="127" width="250" height="76" rx="12" />
+                <text class="dg-t dg-t--sm" x="748" y="158">CloudFormation stack</text>
+                <text class="dg-s" x="748" y="182">Lambda, DynamoDB, SES, IAM, logs</text>
+                <!-- Row 3: GitHub -->
+                <rect class="dg-node" x="400" y="227" width="250" height="76" rx="12" />
+                <text class="dg-t dg-t--sm" x="418" y="258">GitHub</text>
+                <text class="dg-s" x="418" y="282">2 public repositories</text>
+                <rect class="dg-node" x="730" y="227" width="250" height="76" rx="12" />
+                <text class="dg-t dg-t--sm" x="748" y="258">GitHub Pages</text>
+                <text class="dg-s" x="748" y="282">site redeploys on every push</text>
+
+                <path class="dg-arrow" d="M310,110 H350 V65 H398" marker-end="url(#arrD)" />
+                <path class="dg-arrow" d="M310,165 H398" marker-end="url(#arrD)" />
+                <path class="dg-arrow" d="M290,272 H398" marker-end="url(#arrD)" />
+                <path class="dg-arrow" d="M650,65 H728" marker-end="url(#arrD)" />
+                <path class="dg-arrow" d="M650,165 H728" marker-end="url(#arrD)" />
+                <path class="dg-arrow" d="M650,265 H728" marker-end="url(#arrD)" />
+                <text class="dg-lbl" x="354" y="157">deploy</text>
+                <text class="dg-lbl" x="320" y="264">git push</text>
+              </svg>
+            </div>
+            <p class="small muted arch__foot">Cost guardrails: a $2/month budget alert on AWS and on both Azure subscriptions. Every service runs on a scale-to-zero serverless plan, so idle cost is about $0.</p>
+          </div>
+        </div>
+
+        <!-- Capstone case study -->
+        <article class="card capstone reveal" id="capstone">
+          <div class="capstone__head">
+            <div>
+              <p class="section__kicker" data-bind="cloud.capstone.programme"></p>
+              <h3 data-bind="cloud.capstone.title"></h3>
+            </div>
+            <div class="capstone__meta" id="capstoneMeta"></div>
+          </div>
+          <p class="capstone__summary" data-bind="cloud.capstone.summary"></p>
+          <p class="capstone__role" id="capstoneRole" hidden></p>
+
+          <h4 class="capstone__sub">Application architecture</h4>
+          <p class="diagram-hint mono small muted">Swipe sideways to see the full diagram →</p>
+          <div class="diagram-scroll">
+            <svg class="dg" viewBox="0 0 1000 300" role="img" aria-labelledby="dgBallotTitle">
+              <title id="dgBallotTitle">Ballot architecture: the browser reaches an Nginx + React frontend on EC2, which proxies to a Flask API backed by PostgreSQL and Redis; a Node.js worker consumes queued votes from Redis and writes them to PostgreSQL.</title>
+                <defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head" /></marker></defs>
+              <rect class="dg-node dg-node--key" x="20" y="110" width="120" height="80" rx="12" />
+              <text class="dg-t dg-t--sm" x="36" y="144">Voter / admin</text>
+              <text class="dg-s" x="36" y="167">browser</text>
+
+              <rect class="dg-region dg-region--aws" x="170" y="16" width="810" height="268" rx="16" />
+              <text class="dg-r" x="190" y="42">AWS EC2 · DOCKER COMPOSE · 5 HEALTH-CHECKED SERVICES</text>
+              <text class="dg-r dg-r--end" x="962" y="42">CloudWatch logs &amp; alarms</text>
+
+              <rect class="dg-node" x="195" y="110" width="165" height="80" rx="12" />
+              <text class="dg-t dg-t--sm" x="211" y="142">Frontend</text>
+              <text class="dg-s" x="211" y="165">React + Nginx · port 80</text>
+
+              <rect class="dg-node" x="400" y="110" width="165" height="80" rx="12" />
+              <text class="dg-t dg-t--sm" x="416" y="142">Flask API</text>
+              <text class="dg-s" x="416" y="165">JWT · admin roles</text>
+
+              <rect class="dg-node" x="620" y="60" width="165" height="76" rx="12" />
+              <text class="dg-t dg-t--sm" x="636" y="91">PostgreSQL</text>
+              <text class="dg-s" x="636" y="114">users · elections · votes</text>
+
+              <rect class="dg-node" x="620" y="186" width="165" height="76" rx="12" />
+              <text class="dg-t dg-t--sm" x="636" y="217">Redis</text>
+              <text class="dg-s" x="636" y="240">reservations · queue · cache</text>
+
+              <rect class="dg-node" x="815" y="110" width="145" height="80" rx="12" />
+              <text class="dg-t dg-t--sm" x="831" y="142">Node.js worker</text>
+              <text class="dg-s" x="831" y="165">writes votes in a txn</text>
+
+              <path class="dg-arrow dg-arrow--key" d="M140,150 H193" marker-end="url(#arrB)" />
+              <path class="dg-arrow" d="M360,150 H398" marker-end="url(#arrB)" />
+              <path class="dg-arrow" d="M565,135 H592 V98 H618" marker-end="url(#arrB)" />
+              <path class="dg-arrow" d="M565,165 H592 V224 H618" marker-end="url(#arrB)" />
+              <path class="dg-arrow" d="M785,224 H887 V192" marker-end="url(#arrB)" />
+              <path class="dg-arrow" d="M887,110 V98 H787" marker-end="url(#arrB)" />
+              <text class="dg-lbl" x="366" y="140">/api</text>
+              <text class="dg-lbl" x="518" y="214">queue vote</text>
+              <text class="dg-lbl" x="800" y="216">job</text>
+              <text class="dg-lbl" x="800" y="90">commit</text>
+            </svg>
+          </div>
+
+          <h4 class="capstone__sub">CI/CD pipeline (GitHub Actions → AWS)</h4>
+          <ol class="pipeline" id="pipeline"></ol>
+
+          <div class="capstone__cols">
+            <div>
+              <h4 class="capstone__sub">Engineering highlights</h4>
+              <div class="capstone__hls" id="capstoneHighlights"></div>
+            </div>
+            <div>
+              <h4 class="capstone__sub">What we'd build next</h4>
+              <ul class="capstone__next" id="capstoneNext"></ul>
+            </div>
+          </div>
+          <div class="capstone__foot">
+            <p class="small muted" data-bind="cloud.capstone.credit"></p>
+            <a class="btn btn--primary btn--small" id="capstoneRepo" target="_blank" rel="noopener">View the repo on GitHub →</a>
+          </div>
+        </article>
+
+        <!-- Skills evidence table -->
+        <div class="card caps reveal">
+          <h3>Cloud skills, and where to see them</h3>
+          <div class="table-wrap"><table class="caps__table" id="capabilities"></table></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="section__kicker">05 — Experience</p>
           <h2 class="section__title">Where I've delivered</h2>
         </div>
         <ol class="timeline" id="timeline"></ol>
@@ -169,10 +438,10 @@
     </section>
 
     <!-- ===================== SKILLS ===================== -->
-    <section class="section" id="skills">
+    <section class="section section--alt" id="skills">
       <div class="container">
         <div class="section__head reveal">
-          <p class="section__kicker">05 — Skills</p>
+          <p class="section__kicker">06 — Skills</p>
           <h2 class="section__title">Toolkit</h2>
         </div>
         <div class="skills" id="skillGroups"></div>
@@ -181,10 +450,10 @@
     </section>
 
     <!-- ===================== EDUCATION ===================== -->
-    <section class="section section--alt" id="education">
+    <section class="section" id="education">
       <div class="container">
         <div class="section__head reveal">
-          <p class="section__kicker">06 — Education &amp; credentials</p>
+          <p class="section__kicker">07 — Education &amp; credentials</p>
           <h2 class="section__title">Foundations</h2>
         </div>
         <div class="edu" id="education-list"></div>
@@ -192,10 +461,10 @@
     </section>
 
     <!-- ===================== CONTACT ===================== -->
-    <section class="section" id="contact">
+    <section class="section section--alt" id="contact">
       <div class="container contact">
         <div class="contact__text reveal">
-          <p class="section__kicker">07 — Contact</p>
+          <p class="section__kicker">08 — Contact</p>
           <h2 class="section__title" data-bind="contact.heading"></h2>
           <p class="section__lead" data-bind="contact.text"></p>
           <ul class="contact__list" id="contactList"></ul>
@@ -234,6 +503,8 @@
   <script src="js/icons.js"></script>
   <script src="js/hero-canvas.js"></script>
   <script src="js/dcf.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/cloud.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

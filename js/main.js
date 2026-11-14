@@ -139,7 +139,7 @@
       <p>${esc(p.summary)}</p>
       <ul>${(p.details || []).map((d) => `<li>${esc(d)}</li>`).join("")}</ul>
       <div class="chips">${(p.tags || []).map((t) => `<span class="chip">${esc(t)}</span>`).join("")}</div>
-      ${p.links?.length ? `<div class="modal__links">${p.links.map((l) => `<a class="btn btn--primary btn--small" href="${esc(l.url)}" ${l.url.startsWith("#") ? "data-close" : 'target="_blank" rel="noopener"'}>${esc(l.label)} →</a>`).join("")}</div>` : ""}`;
+      ${p.links?.length ? `<div class="modal__links">${p.links.map((l) => `<a class="btn btn--primary btn--small" href="${esc(l.url)}" ${l.url.startsWith("#") ? "data-close" : /\.(xlsx|pdf)$/i.test(l.url) ? "download" : 'target="_blank" rel="noopener"'}>${esc(l.label)} →</a>`).join("")}</div>` : ""}`;
     modal.showModal();
   });
   // Keyboard: Enter / Space opens a focused card

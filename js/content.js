@@ -23,7 +23,7 @@ window.SITE = {
     shortName: "JP",
     role: "Financial & Operations Analyst",
     // Rotating words shown in the hero after "I build…"
-    rotatingWords: ["financial models", "AI-powered workflows", "cloud-ready reporting", "investor-grade analysis"],
+    rotatingWords: ["financial models", "equity valuations", "multi-cloud APIs", "AI-powered workflows", "investor-grade analysis"],
     tagline:
       "Mathematics graduate turned finance & operations analyst. I turn messy data into decision-ready models, reports and systems — for boardrooms, auditors and investors.",
     location: "Lagos, Nigeria",
@@ -34,8 +34,8 @@ window.SITE = {
     resumeUrl: "assets/Joseph_Mark-Inyah_CV.pdf", // set to "" to hide the CV button
     socials: [
       { label: "LinkedIn", url: "https://www.linkedin.com/in/jpmark-inyah/", icon: "linkedin" },
+      { label: "GitHub", url: "https://github.com/jaegarP", icon: "github" },
       { label: "Email", url: "mailto:joseph.markinyah@gmail.com", icon: "mail" },
-      // { label: "GitHub", url: "https://github.com/your-username", icon: "github" },
     ],
   },
 
@@ -73,6 +73,53 @@ window.SITE = {
   ],
 
   projects: [
+    {
+      published: true,
+      featured: true,
+      category: "finance",
+      title: "Equity Research DCF Models: NVIDIA & ExxonMobil",
+      org: "Personal research · full Excel builds",
+      year: "2026",
+      summary:
+        "Two 27-sheet, three-statement DCF models from 10-K data: one high-growth AI chip maker, one mature oil major. Each has best / base / worst scenarios and a full WACC build.",
+      details: [
+        "Revenue built by segment (NVIDIA: Data Center, Gaming, ProViz, Automotive, OEM; ExxonMobil: Upstream, Energy, Chemical, Specialty Products).",
+        "Separate schedules for cost of sales, opex, PP&E, working capital (DSO / DIO / DPO) and financing, which feed a forecast P&L, balance sheet and cash flow.",
+        "CAPM cost of equity with an adjusted beta, plus a WACC that moves with the capital structure each year. Terminal value uses Gordon growth.",
+        "Base case: NVIDIA $161 a share vs $174 market (−7%); ExxonMobil $146 vs $164 (−11%).",
+        "A single switch on the Drivers sheet re-runs the whole model for the best, base or worst case. Every input is sourced and dated.",
+      ],
+      tags: ["DCF", "3-Statement Model", "WACC", "Scenario Analysis", "Excel"],
+      metric: { value: "2", label: "companies valued" },
+      links: [
+        { label: "See the models", url: "#models" },
+        { label: "Download NVIDIA (.xlsx)", url: "assets/models/NVIDIA_DCF_model.xlsx" },
+        { label: "Download ExxonMobil (.xlsx)", url: "assets/models/ExxonMobil_DCF_model.xlsx" },
+      ],
+    },
+    {
+      published: true,
+      featured: true,
+      category: "cloud",
+      title: "Ballot: Voting App on AWS (TechCrush Capstone)",
+      org: "TechCrush Cloud Computing Bootcamp · Group 13",
+      year: "2026",
+      summary:
+        "Group 13's capstone: a five-service voting app shipped to AWS EC2 by a CI/CD pipeline with security scans built in, OIDC credentials, SSM deploys and health-gated releases.",
+      details: [
+        "Stack: React + Nginx frontend, Flask API (JWT, admin roles), Node.js worker, PostgreSQL and Redis, all run with Docker Compose.",
+        "GitHub Actions pipeline: CodeQL, tests and Trivy scans must pass before any image is published or deployed.",
+        "Images are tagged with the commit SHA. AWS access uses short-lived OIDC credentials, and deploys go through SSM Run Command with no SSH.",
+        "A deploy only counts as successful once all five services report healthy. CloudWatch collects the logs and raises alarms.",
+        "One person, one vote, enforced twice: a Redis reservation plus a PostgreSQL uniqueness constraint.",
+      ],
+      tags: ["AWS EC2", "GitHub Actions", "Docker Compose", "OIDC", "SSM", "CloudWatch", "Trivy"],
+      metric: { value: "5th", label: "in the cohort" },
+      links: [
+        { label: "Read the case study", url: "#capstone" },
+        { label: "View repo on GitHub", url: "https://github.com/Christos-Ops/Voting-app" },
+      ],
+    },
     {
       published: true,
       featured: true,
@@ -252,7 +299,32 @@ window.SITE = {
       ],
       tags: ["AWS Lambda", "DynamoDB", "SES", "Azure Functions", "C# / .NET 10", "Docker", "IaC"],
       metric: { value: "2", label: "clouds, 1 codebase" },
-      links: [{ label: "View code on GitHub", url: "https://github.com/jaegarP/portfolio-contact-api" }],
+      links: [
+        { label: "See the architecture", url: "#cloud" },
+        { label: "View code on GitHub", url: "https://github.com/jaegarP/portfolio-contact-api" },
+      ],
+    },
+    {
+      published: true,
+      featured: false,
+      category: "cloud",
+      title: "This Portfolio Website",
+      org: "Personal project · GitHub Pages",
+      year: "2026",
+      summary:
+        "A fast static site with no framework, hosted on GitHub Pages. Its contact form runs on a multi-cloud serverless backend, and all content is edited in one data file.",
+      details: [
+        "Plain HTML, CSS and JavaScript with no build step, so there's nothing to patch and every push to GitHub redeploys it.",
+        "Data-driven: every section is rendered from js/content.js.",
+        "Social-preview metadata, light and dark themes, keyboard-accessible cards and a responsive layout down to phone width.",
+        "Contact form tries Azure, then AWS, then the visitor's email app, so no enquiry is lost.",
+      ],
+      tags: ["GitHub Pages", "HTML / CSS / JS", "Accessibility", "Serverless backend"],
+      metric: { value: "0", label: "servers to manage" },
+      links: [
+        { label: "See the architecture", url: "#cloud" },
+        { label: "View code on GitHub", url: "https://github.com/jaegarP/jaegarP.github.io" },
+      ],
     },
 
     /* ---- TEMPLATE: copy this block for a new project, then set published: true ---- */
@@ -270,6 +342,171 @@ window.SITE = {
       links: [{ label: "View on GitHub", url: "https://github.com/" }],
     },
   ],
+
+  /* ---------- Equity research models (Model lab section) ----------
+     Figures are copied from each workbook's base case (DCF and WACC sheets).
+     Money is in US$ billions unless the field name says otherwise.
+     `actualYears` = how many of the `years` are reported actuals (the rest are forecasts). */
+  models: [
+    {
+      company: "NVIDIA",
+      ticker: "NASDAQ: NVDA",
+      sector: "Semiconductors · AI compute",
+      file: "assets/models/NVIDIA_DCF_model.xlsx",
+      valuationDate: "25 Jan 2026",
+      priceDate: "11 Nov 2026",
+      valuePerShare: 161.21,
+      price: 173.73,
+      upsidePct: -7.2,
+      waccPct: 13.55,
+      take:
+        "The base case has Data Center revenue nearly doubling in FY2027 (total revenue +90%). Growth then fades to 2% by FY2036, taking revenue to about 6.5× FY2026. A high beta pushes WACC to 13.6%. Even at that growth, the shares come out about 7% above intrinsic value.",
+      years: ["FY23", "FY24", "FY25", "FY26", "FY27", "FY28", "FY29", "FY30", "FY31", "FY32", "FY33", "FY34", "FY35", "FY36"],
+      actualYears: 4,
+      revenueBn: [27.0, 60.9, 130.5, 215.9, 410.5, 689.6, 903.0, 1035.9, 1138.0, 1216.8, 1277.2, 1327.8, 1367.6, 1395.0],
+      bridge: [
+        { label: "PV of free cash flow (10 yrs)", value: 2399.3 },
+        { label: "PV of terminal value", value: 1442.4 },
+        { label: "Enterprise value", value: 3841.7, total: true },
+        { label: "+ Cash & marketable securities", value: 62.6 },
+        { label: "− Debt", value: -8.5 },
+        { label: "+ Non-marketable equity securities", value: 22.3 },
+        { label: "Equity value", value: 3918.0, total: true },
+      ],
+      shares: "24,304m shares",
+      assumptions: [
+        "Risk-free rate 4.98% (10-yr Treasury, 10 Nov 2026)",
+        "Equity risk premium 5.0%; adjusted beta 1.81 (raw 2.21)",
+        "Cost of equity 14.0%; cost of debt 5.4%; tax 17%",
+        "Terminal growth 2.0%; terminal value = 38% of EV",
+      ],
+    },
+    {
+      company: "ExxonMobil",
+      ticker: "NYSE: XOM",
+      sector: "Integrated oil & gas",
+      file: "assets/models/ExxonMobil_DCF_model.xlsx",
+      valuationDate: "31 Dec 2025",
+      priceDate: "10 Nov 2026",
+      valuePerShare: 146.1,
+      price: 164.43,
+      upsidePct: -11.2,
+      waccPct: 6.72,
+      take:
+        "Revenue rebounds 17% in 2026, then grows about 2% a year to 2035. A very low beta (adjusted to 0.44) gives a 6.7% WACC, so 60% of the value sits in the terminal value. On these assumptions the stock is about 11% above intrinsic value.",
+      years: ["2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035"],
+      actualYears: 4,
+      revenueBn: [413.7, 344.6, 349.6, 332.2, 388.5, 355.8, 346.8, 354.3, 362.0, 369.2, 376.5, 384.0, 391.6, 399.4],
+      bridge: [
+        { label: "PV of free cash flow (10 yrs)", value: 256.7 },
+        { label: "PV of terminal value", value: 392.1 },
+        { label: "Enterprise value", value: 648.8, total: true },
+        { label: "+ Cash", value: 10.7 },
+        { label: "− Debt", value: -43.5 },
+        { label: "− Noncontrolling interests", value: -7.2 },
+        { label: "Equity value", value: 608.7, total: true },
+      ],
+      shares: "4,166.8m shares",
+      assumptions: [
+        "Risk-free rate 4.98% (10-yr Treasury, 10 Nov 2026)",
+        "Equity risk premium 5.0%; adjusted beta 0.44 (raw 0.16)",
+        "Cost of equity 7.2%; cost of debt 5.5%; tax 28%",
+        "Terminal growth 2.0%; terminal value = 60% of EV",
+      ],
+    },
+  ],
+  modelsNote:
+    "Educational models built from public 10-K filings. They are not investment advice. Each workbook has 27 sheets: drivers & scenarios, P&L and balance-sheet inputs, revenue, gross-profit and opex builds, PP&E, working capital, financing, WACC, a three-statement forecast and the DCF. Change Drivers!C3 to switch between best, base and worst cases.",
+
+  /* ---------- Cloud & DevOps section ---------- */
+  cloud: {
+    // Cards at the top of the section. status: "live" shows a green dot.
+    deployments: [
+      {
+        title: "Portfolio website",
+        status: "live",
+        statusText: "Live",
+        where: "GitHub Pages",
+        text: "Static site with a global CDN and HTTPS. Every push to GitHub redeploys it.",
+        stack: ["GitHub Pages", "HTML / CSS / JS"],
+        links: [
+          { label: "Repo", url: "https://github.com/jaegarP/jaegarP.github.io" },
+        ],
+      },
+      {
+        title: "Multi-cloud contact API",
+        status: "live",
+        statusText: "Live on 2 clouds",
+        where: "Azure (South Africa North) + AWS (Ireland)",
+        text: "One C# codebase deployed to Azure Functions and AWS Lambda, with automatic failover between them. It runs this site's contact form.",
+        stack: ["Azure Functions", "AWS Lambda", "DynamoDB", "SES", "SAM / CloudFormation", "Docker"],
+        links: [{ label: "Repo", url: "https://github.com/jaegarP/portfolio-contact-api" }],
+      },
+      {
+        title: "Ballot voting app",
+        status: "team",
+        statusText: "Capstone · Group 13",
+        where: "AWS EC2 via GitHub Actions",
+        text: "Five containerised services shipped by a scan-gated CI/CD pipeline with OIDC credentials, SSM deploys and health checks.",
+        stack: ["AWS EC2", "SSM", "OIDC", "GitHub Actions", "Docker Compose", "CloudWatch"],
+        links: [
+          { label: "Case study", url: "#capstone" },
+          { label: "Repo", url: "https://github.com/Christos-Ops/Voting-app" },
+        ],
+      },
+    ],
+
+    // The TechCrush capstone case study
+    capstone: {
+      title: "Ballot: a voting app with a production-style delivery pipeline on AWS",
+      programme: "TechCrush Cloud Computing Bootcamp · Final capstone",
+      team: "Group 13",
+      result: "Finished 5th in the cohort",
+      // Write your own part here (e.g. "I built the CloudWatch monitoring and the deploy script").
+      // Leave it as "" to hide the line.
+      myRole: "",
+      credit: "Team project. The repository is hosted by teammate Taiwo Christopher Aderemi.",
+      repo: "https://github.com/Christos-Ops/Voting-app",
+      summary:
+        "Ballot is a full-stack election app with voter and admin workflows. The real focus is how it ships: every change is scanned, built, tagged and deployed to AWS automatically, and a release only counts once all five services report healthy.",
+      pipeline: [
+        { title: "Push or PR", text: "to main / staging" },
+        { title: "Code checks", text: "CodeQL, unit tests, Trivy source & dependency scan" },
+        { title: "Build", text: "API, worker & frontend images" },
+        { title: "Image scan", text: "Trivy blocks high / critical issues" },
+        { title: "Publish", text: "images tagged with the commit SHA" },
+        { title: "OIDC", text: "short-lived AWS credentials, no stored keys" },
+        { title: "SSM deploy", text: "Run Command on EC2, no SSH" },
+        { title: "Health gate", text: "all 5 services must report healthy" },
+      ],
+      highlights: [
+        { title: "Security built in", text: "Nothing ships until it passes the scans. Secrets live only on the server, never in the pipeline or its logs." },
+        { title: "Full traceability", text: "Each deployment runs images tagged with the exact commit they were built from, so it's always clear what's running." },
+        { title: "Two-layer vote integrity", text: "Redis reserves one vote per voter and election. PostgreSQL enforces the same rule as a backstop." },
+        { title: "Resilient worker", text: "Votes are written in a transaction, and any job left half-done is recovered after a restart." },
+      ],
+      nextSteps: [
+        "HTTPS via a load balancer with TLS",
+        "Automatic rollback when a health check fails",
+        "Terraform for the IAM roles and infrastructure",
+        "Automated database backups and restore",
+        "AWS Secrets Manager for application secrets",
+      ],
+    },
+
+    // "What I can do → where you can see it" table
+    capabilities: [
+      { skill: "Serverless", evidence: "Azure Functions (Flex Consumption) and AWS Lambda (arm64, Function URL) serving one shared C# core." },
+      { skill: "Infrastructure as code", evidence: "AWS SAM / CloudFormation template for Lambda, DynamoDB, IAM and logs. Re-runnable Azure CLI deployment script." },
+      { skill: "CI/CD", evidence: "Capstone pipeline in GitHub Actions: CodeQL, tests, Trivy scans, build, publish and deploy. The website redeploys on every push." },
+      { skill: "Containers", evidence: "Docker Compose stack for the contact API with Azurite and DynamoDB Local emulators, plus the capstone's five-service production Compose stack." },
+      { skill: "Security", evidence: "OIDC instead of stored keys and SSM instead of SSH (capstone). CORS locked to this site, salted IP hashing, rate limiting and a spam honeypot (contact API)." },
+      { skill: "Resilience", evidence: "Multi-cloud failover: Azure → AWS → email app, tested by simulating outages. Messages are stored before any email is sent." },
+      { skill: "Observability", evidence: "Application Insights on Azure, CloudWatch logs (30-day retention) on AWS, and CloudWatch alarms on the capstone." },
+      { skill: "Cost governance", evidence: "$2/month budget alerts on AWS and both Azure subscriptions. Scale-to-zero serverless plans keep idle cost at about $0." },
+      { skill: "Testing", evidence: "35 xUnit tests on the contact API. The capstone's API and worker tests run in CI on every change." },
+    ],
+  },
 
   /* ---------- Experience timeline ---------- */
   experience: [
@@ -370,6 +607,10 @@ window.SITE = {
     "Azure Functions",
     "Docker",
     "C# / .NET",
+    "GitHub Actions CI/CD",
+    "Infrastructure as Code (SAM)",
+    "AWS EC2 & SSM",
+    "Cost governance (Budgets)",
   ],
 
   /* ---------- Education & credentials ---------- */
@@ -385,6 +626,12 @@ window.SITE = {
       org: "Institute of Chartered Accountants of Nigeria",
       period: "Expected Nov 2026",
       note: "Professional accountancy qualification in progress.",
+    },
+    {
+      title: "Cloud Computing Bootcamp",
+      org: "TechCrush",
+      period: "2026",
+      note: "AWS, Docker, CI/CD and DevOps practice. Capstone with Group 13: the Ballot voting app on AWS. Finished 5th in the cohort.",
     },
     {
       title: "The Complete Investment Banking Course",

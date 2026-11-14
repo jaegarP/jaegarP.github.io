@@ -28,10 +28,13 @@ port/
 │   ├── content.js      ← ★ ALL TEXT & DATA: bio, projects, experience, skills, education
 │   ├── main.js         ← renders content.js into the page + interactions (filters, modal, theme…)
 │   ├── dcf.js          ← the interactive DCF model (inputs, maths, chart, sensitivity table)
+│   ├── models.js       ← equity-research model cards (reads `models` in content.js)
+│   ├── cloud.js        ← Cloud & DevOps section: deployments, capstone, skills table
 │   ├── hero-canvas.js  ← animated background in the hero section
 │   └── icons.js        ← SVG icon set
 ├── assets/
 │   ├── Joseph_Mark-Inyah_CV.pdf   ← the "Download CV" file
+│   ├── models/                    ← downloadable Excel models (NVIDIA, ExxonMobil)
 │   └── favicon.svg                ← browser-tab icon
 └── .vscode/            ← VS Code settings, recommended extensions, F5 launch config
 ```
@@ -57,6 +60,10 @@ port/
 | Change colours                    | `css/style.css` → top of file: `--accent`, `--accent-2`, `--bg`…          |
 | Change fonts                      | the Google Fonts `<link>` in `index.html` + `--font-*` in `css/style.css` |
 | Change DCF defaults / sliders     | `js/dcf.js` → `INPUTS` array                                              |
+| Add / update an Excel model       | put the .xlsx in `assets/models/`, then edit `js/content.js` → `models` (figures come from the workbook's DCF & WACC sheets) |
+| Edit the Cloud & DevOps section   | `js/content.js` → `cloud` (deployments, capstone, capabilities)          |
+| Add my capstone contribution      | `js/content.js` → `cloud.capstone.myRole` (empty = hidden)                |
+| Edit the architecture diagrams    | `index.html` → the `<svg class="dg">` blocks in the `#cloud` section      |
 | Change the hero animation         | `js/hero-canvas.js` → `CONFIG`                                            |
 | Add a new icon                    | `js/icons.js` — paste the paths of any 24×24 stroke icon (e.g. lucide.dev) |
 
