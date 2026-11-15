@@ -23,6 +23,8 @@ window.ICONS = (() => {
     moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
     star: '<path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/>',
+    // The Xolve mark (filled, with its neon-green bar), scaled into the 24×24 box
+    xolve: '<g transform="translate(-1.8 -1.3) scale(.27)" fill="currentColor" stroke="none"><path d="M86 12H72L54.74 30.5l3.57 2.07 1.46 1.91zM16 72l25.02-21.45-2.25-2.95z"/><path d="M16 12l39.95 23.25L84 72 44.05 48.75z"/><rect x="32" y="80" width="36" height="6" rx="3" fill="#00F07A"/></g>',
   };
 
   // Returns an SVG string for the given icon name

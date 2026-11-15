@@ -35,6 +35,7 @@ window.SITE = {
     socials: [
       { label: "LinkedIn", url: "https://www.linkedin.com/in/jpmark-inyah/", icon: "linkedin" },
       { label: "GitHub", url: "https://github.com/jaegarP", icon: "github" },
+      { label: "Xolve (my company)", url: "https://xolve-it.github.io/", icon: "xolve" },
       { label: "Email", url: "mailto:joseph.markinyah@gmail.com", icon: "mail" },
     ],
   },

@@ -172,9 +172,12 @@ p { margin: 0 0 1em; }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
 .nav__logo { display: flex; align-items: center; gap: 12px; font-family: var(--font-display); font-weight: 600; }
 .nav__logo-mark {
-  width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06121a; font-weight: 700; font-size: .95rem;
+  width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; overflow: hidden;
+  background: #0A0A0A; box-shadow: 0 0 0 1px rgba(255, 255, 255, .12);
 }
+.nav__logo-mark img { width: 100%; height: 100%; display: block; }
+.hero__xolve { color: inherit; text-decoration: none; padding-bottom: 2px; background: linear-gradient(#00F07A, #00F07A) 0 100% / 100% 2px no-repeat; }
+.hero__xolve:hover { background-size: 100% 100%; color: #0A0A0A; }
 .nav__links { display: flex; align-items: center; gap: 28px; font-size: .93rem; }
 .nav__links a:not(.btn) { color: var(--muted); transition: color .2s; position: relative; }
 .nav__links a:not(.btn):hover,
