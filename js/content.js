@@ -464,7 +464,8 @@ window.SITE = {
       result: "Finished 5th in the cohort",
       // Write your own part here (e.g. "I built the CloudWatch monitoring and the deploy script").
       // Leave it as "" to hide the line.
-      myRole: "",
+      myRole:
+        "I provisioned the AWS EC2 host, security groups and IAM roles; containerised the five services with Docker and Docker Compose; built the GitHub Actions pipeline that tests, scans and deploys every change; and wrote the automated tests that gate each release.",
       credit: "Team project. The repository is hosted by teammate Taiwo Christopher Aderemi.",
       repo: "https://github.com/Christos-Ops/Voting-app",
       summary:
