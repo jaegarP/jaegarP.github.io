@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Joseph P. Mark-Inyah — Finance, AI & Cloud Portfolio</title>
   <meta name="description" content="Portfolio of Joseph P. Mark-Inyah: financial modeling, operations analytics, AI-enabled workflows and cloud tools." />
-  <!-- Browser-tab and home-screen icon: the Xolve mark on black (from the Xolve logo kit) -->
-  <link rel="icon" href="assets/favicon.svg?v=xolve" type="image/svg+xml" />
-  <link rel="icon" href="assets/apple-touch-icon.png?v=xolve" type="image/png" sizes="512x512" />
+  <!-- Browser-tab icon: the Xolve mark on a transparent background (black mark on light tabs,
+       white mark on dark tabs). Phone home screens need a solid tile, so apple-touch-icon stays on black. -->
+  <link rel="icon" href="assets/favicon.svg?v=xolve2" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=xolve" />
   <link rel="canonical" href="https://jaegarp.github.io/" />
 
@@ -40,7 +40,10 @@
   <header class="nav" id="nav">
     <div class="container nav__inner">
       <a href="#top" class="nav__logo" aria-label="Home">
-        <span class="nav__logo-mark"><img src="assets/favicon.svg?v=xolve" alt="" width="38" height="38" /></span>
+        <span class="nav__logo-mark">
+          <img class="logo--on-dark" src="assets/brand/xolve-icon-reversed.svg" alt="" width="36" height="38" />
+          <img class="logo--on-light" src="assets/brand/xolve-icon-primary.svg" alt="" width="36" height="38" />
+        </span>
         <span class="nav__logo-text" data-bind="person.name"></span>
       </a>
       <nav class="nav__links" id="navLinks" aria-label="Main">
@@ -80,7 +83,7 @@
         <div class="hero__meta reveal">
           <span class="mono">📍 <span data-bind="person.location"></span></span>
           <span class="mono" data-bind="person.role"></span>
-          <a class="mono hero__xolve" href="https://xolve-it.github.io/">Founder, Xolve ↗</a>
+          <a class="mono hero__xolve" href="https://xolve-it.github.io/" target="_blank" rel="noopener">Founder, Xolve ↗</a>
         </div>
       </div>
       <div class="container">
