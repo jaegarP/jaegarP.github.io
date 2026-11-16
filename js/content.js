@@ -43,7 +43,7 @@ window.SITE = {
   /* ---------- Headline numbers (hero strip) ---------- */
   stats: [
     { value: 40, suffix: "%", label: "Faster executive reporting after rebuilding Excel systems" },
-    { value: 5000, suffix: "+", label: "Records in datasets analysed & reconciled" },
+    { value: 50000, suffix: "+", label: "Records in datasets analysed & reconciled" },
     { value: 50, suffix: "+", label: "Research clients served with SPSS & Excel" },
     { value: 90, suffix: "%", label: "Client retention in research consultancy" },
   ],
@@ -187,7 +187,7 @@ window.SITE = {
         "Designed Excel-based operational databases and reporting systems that cut executive reporting delays by 40% across a multi-entity group.",
       details: [
         "Structured operational data across Finance, Operations, HR, Legal, IT and Security into one reporting backbone.",
-        "Bank-statement analysis, multi-account reconciliations and scenario analysis on datasets of 5,000+ records.",
+        "Bank-statement analysis, multi-account reconciliations and scenario analysis on datasets of 50,000+ records.",
         "Shared via cloud workspaces (Google Workspace / Microsoft 365) for real-time access by leadership.",
       ],
       tags: ["Excel", "Reconciliation", "Google Workspace", "Process Design"],
@@ -538,7 +538,7 @@ window.SITE = {
       points: [
         "Strategic interface for the Chairman across Finance, Operations, HR, Legal, IT and Security; liaised with consultants (Arup, KOA, APD), banks, contractors and government agencies.",
         "Supported a high-ticket capital expansion round with project-finance modelling, investment analysis, management accounts and board reports.",
-        "Built Excel reporting systems that cut executive reporting delays by 40%; reconciliations and scenario analysis on 5,000+ record datasets.",
+        "Built Excel reporting systems that cut executive reporting delays by 40%; reconciliations and scenario analysis on 50,000+ record datasets.",
         "Managed 15+ high-priority monthly commitments including investor, board and government engagements.",
       ],
     },
