@@ -109,7 +109,7 @@ To change the image:
    ```
 3. Commit & sync, then refresh LinkedIn's cached copy at **linkedin.com/post-inspector** (paste your URL → Inspect).
 
-If you move to a custom domain, update every `https://jaegarp.github.io` URL in the `<head>` of `index.html`.
+The site is served from Cloudflare Pages at https://jaegarp.pages.dev (main address, redeploys on every push to `main`) and from GitHub Pages at https://jaegarp.github.io (backup). If you move to a custom domain, update every `https://jaegarp.pages.dev` URL in the `<head>` of `index.html` and add the new address to the contact API's AllowedOrigins.
 
 ---
 
