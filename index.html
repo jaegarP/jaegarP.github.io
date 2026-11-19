@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=xo1" />
 </head>
 <body>
   <!-- ===================== NAVIGATION ===================== -->
@@ -55,6 +55,7 @@
         <a href="#cloud">Cloud</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
+        <a href="#services">Services</a>
         <a href="#contact" class="btn btn--small btn--primary">Contact</a>
       </nav>
       <div class="nav__actions">
@@ -85,7 +86,7 @@
         <div class="hero__meta reveal">
           <span class="mono">📍 <span data-bind="person.location"></span></span>
           <span class="mono" data-bind="person.role"></span>
-          <a class="mono hero__xolve" href="https://xolve-it.pages.dev/" target="_blank" rel="noopener">Founder, Xolve ↗</a>
+          <a class="mono hero__xolve" href="https://xolve-it.pages.dev/" target="_blank" rel="noopener">Founder/CEO, Xolve ↗</a>
         </div>
       </div>
       <div class="container">
@@ -115,6 +116,11 @@
         </div>
         <div class="filters reveal" id="filters" role="tablist"></div>
         <div class="projects" id="projects"></div>
+        <div class="xo-cta reveal">
+          <span class="xo-badge xo-badge--fin">Fin Xolution</span>
+          <p>Want reporting like this for your business: stock, sales, debtors and cash flow in one secure terminal?</p>
+          <a class="btn btn--primary btn--small" href="https://xolve-it.pages.dev/start/ledger/" target="_blank" rel="noopener">Order a Ledger Terminal on Xolve ↗</a>
+        </div>
       </div>
     </section>
 
@@ -131,6 +137,11 @@
              The .xlsx files live in assets/models/. -->
         <div id="models" class="models"></div>
         <p class="models__note small muted reveal" data-bind="modelsNote"></p>
+        <div class="xo-cta reveal">
+          <span class="xo-badge xo-badge--fin">Fin Xolution</span>
+          <p>Need a model like these for your own business, fundraise or loan?</p>
+          <a class="btn btn--primary btn--small" href="https://xolve-it.pages.dev/start/finance/" target="_blank" rel="noopener">Order a financial model on Xolve ↗</a>
+        </div>
 
         <div class="lab-head reveal">
           <h3>Interactive DCF sandbox</h3>
@@ -185,6 +196,12 @@
           <p class="section__kicker">04 — Cloud &amp; DevOps</p>
           <h2 class="section__title">What I've deployed, and how</h2>
           <p class="section__lead">For hiring managers and clients: live deployments, the architecture behind this site, my bootcamp capstone, and where each cloud skill is demonstrated.</p>
+        </div>
+
+        <div class="xo-cta reveal">
+          <span class="xo-badge xo-badge--tech">Tech Xolution</span>
+          <p>Want a cloud system, API or deployment pipeline like these for your business?</p>
+          <a class="btn btn--primary btn--small" href="https://xolve-it.pages.dev/start/cloud/" target="_blank" rel="noopener">Order a Cloud Xolution on Xolve ↗</a>
         </div>
 
         <div class="deploys" id="deploys"></div>
@@ -469,11 +486,60 @@
       </div>
     </section>
 
+    <!-- ===================== SERVICES (ordered through Xolve, my company) ===================== -->
+    <section class="section section--alt" id="services">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="section__kicker">08 — Services</p>
+          <h2 class="section__title">Work with me through Xolve</h2>
+          <p class="section__lead">I offer my work through Xolve, the fin-tech company I founded. Every service is a Fin Xolution (for your numbers) or a Tech Xolution (for your technology). Pick one to start an official order on the Xolve website.</p>
+        </div>
+        <div class="xo-grid">
+          <a class="card xo-card reveal" href="https://xolve-it.pages.dev/start/finance/" target="_blank" rel="noopener">
+            <span class="xo-badge xo-badge--fin">Fin Xolution</span>
+            <h3>Financial Modelling</h3>
+            <p>Three-statement models, DCF valuations, loan models, budgets and forecasts.</p>
+            <span class="xo-go">Start a brief ↗</span>
+          </a>
+          <a class="card xo-card reveal" href="https://xolve-it.pages.dev/start/ledger/" target="_blank" rel="noopener">
+            <span class="xo-badge xo-badge--fin">Fin Xolution</span>
+            <h3>Ledger Terminal</h3>
+            <p>A secure database app for stock, sales, debtors, cash flow and restock planning.</p>
+            <span class="xo-go">Start a brief ↗</span>
+          </a>
+          <a class="card xo-card reveal" href="https://xolve-it.pages.dev/start/website/?type=Portfolio%20website" target="_blank" rel="noopener">
+            <span class="xo-badge xo-badge--tech">Tech Xolution</span>
+            <h3>Website</h3>
+            <p>Portfolio, business and online-shop websites, like this one. Get a quote first.</p>
+            <span class="xo-go">Start a brief ↗</span>
+          </a>
+          <a class="card xo-card reveal" href="https://xolve-it.pages.dev/start/website/?care=Essential%20Care#care" target="_blank" rel="noopener">
+            <span class="xo-badge xo-badge--tech">Tech Xolution · Add-on</span>
+            <h3>Website Care</h3>
+            <p>Hosting, renewals, backups, security updates, uptime checks and monthly changes.</p>
+            <span class="xo-go">Add it ↗</span>
+          </a>
+          <a class="card xo-card reveal" href="https://xolve-it.pages.dev/start/cloud/" target="_blank" rel="noopener">
+            <span class="xo-badge xo-badge--tech">Tech Xolution</span>
+            <h3>Cloud</h3>
+            <p>Serverless APIs, multi-cloud failover, CI/CD pipelines, Docker and cost guardrails.</p>
+            <span class="xo-go">Start a brief ↗</span>
+          </a>
+          <a class="card xo-card reveal" href="https://xolve-it.pages.dev/gigs/" target="_blank" rel="noopener">
+            <span class="xo-badge xo-badge--tech">Tech Xolution</span>
+            <h3>AI Gigs</h3>
+            <p>The latest AI training and evaluation roles from the top platforms, refreshed every 8 hours.</p>
+            <span class="xo-go">Browse gigs ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== CONTACT ===================== -->
-    <section class="section section--alt" id="contact">
+    <section class="section" id="contact">
       <div class="container contact">
         <div class="contact__text reveal">
-          <p class="section__kicker">08 — Contact</p>
+          <p class="section__kicker">09 — Contact</p>
           <h2 class="section__title" data-bind="contact.heading"></h2>
           <p class="section__lead" data-bind="contact.text"></p>
           <ul class="contact__list" id="contactList"></ul>

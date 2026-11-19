@@ -586,3 +586,25 @@ p { margin: 0 0 1em; }
   .caps__table tbody th { white-space: normal; }
   .caps__table th, .caps__table td { padding: 10px 8px; }
 }
+
+/* ---------- Xolve services: order links to the Xolve website (Fin / Tech Xolutions) ---------- */
+.xo-badge {
+  display: inline-flex; align-items: center; align-self: flex-start;
+  font-family: var(--font-mono); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 6px;
+}
+.xo-badge--fin { background: #0A0A0A; color: #fff; box-shadow: inset 4px 0 0 #00F07A; padding-left: 13px; }
+.xo-badge--tech { background: transparent; color: var(--text); border: 1.5px solid currentColor; box-shadow: inset 0 -3px 0 #00F07A; }
+.xo-cta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 28px;
+  padding: 18px 20px; border: 1px dashed var(--border); border-radius: var(--radius); background: var(--surface);
+}
+.xo-cta p { margin: 0; flex: 1 1 260px; color: var(--muted); }
+.xo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.xo-card { display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit; transition: transform .2s, border-color .2s; }
+.xo-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.xo-card h3 { margin: 4px 0 0; font-size: 1.2rem; }
+.xo-card p { margin: 0; color: var(--muted); flex: 1; }
+.xo-go { font-weight: 700; color: var(--accent); }
+@media (max-width: 900px) { .xo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .xo-grid { grid-template-columns: minmax(0, 1fr); } }
